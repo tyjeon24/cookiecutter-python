@@ -30,7 +30,7 @@ def setup_logging_config():
 
 def setup_pre_commit():
     pre_commit_template = Path(".pre-commit-config.yaml")
-    pre_commit_target = Path("../src/{project_dir_name}/.pre-commit-config.yaml")
+    pre_commit_target = Path(f"../src/{project_dir_name}/.pre-commit-config.yaml")
 
     write_file(pre_commit_template, pre_commit_target)
 
