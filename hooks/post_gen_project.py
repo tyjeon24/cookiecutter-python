@@ -3,7 +3,6 @@ import shutil
 
 template_dir = Path("../{{cookiecutter.project_name}}")
 project_dir_name = Path().absolute().parent.name
-project_dir_name = Path().absolute().parent.name
 
 
 def update_pyproject():
@@ -15,6 +14,7 @@ def update_pyproject():
 
 def write_file(source, target):
     target.write_text(source.read_text())
+    print(f"Moved {source.absolute()} to {target.absolute()}")
 
 
 def setup_logging_config():
