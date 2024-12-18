@@ -3,6 +3,7 @@ dev = [
     "pytest",
     "ipykernel",
     "ruff",
+    "pre-commit",
 ]
 
 [[tool.pdm.source]]
