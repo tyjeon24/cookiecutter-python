@@ -1,11 +1,16 @@
 import logging
 import logging.config
+from datetime import datetime
 from pathlib import Path
 
 
-def setup_logging(log_file_path: str = ""):
-    if len(log_file_path) == 0:
-        log_file_path += f"{project_name}.log"
+def setup_logging():
+    EVERY_DAY = 1
+
+    date_str = datetime.now().strftime("%Y-%m-%d")
+    log_dir = Path("logs")
+    log_dir.mkdir(parents=True, exist_ok=True)
+    log_file_path = log_dir / f"{date_str}.log"
 
     logging_config = {
         "version": 1,
@@ -19,10 +24,12 @@ def setup_logging(log_file_path: str = ""):
             },
             "file": {
                 "level": "DEBUG",
-                "class": "logging.FileHandler",
+                "class": "logging.handlers.TimedRotatingFileHandler",
                 "formatter": "standard",
-                "filename": log_file_path,
-                "mode": "a",
+                "filename": str(log_file_path),
+                "when": "midnight",
+                "interval": EVERY_DAY,
+                "encoding": "utf-8",
             },
         },
         "root": {
@@ -33,7 +40,3 @@ def setup_logging(log_file_path: str = ""):
     }
 
     logging.config.dictConfig(logging_config)
-
-
-project_name = Path().absolute().parent.name
-logger = logging.getLogger(project_name)
