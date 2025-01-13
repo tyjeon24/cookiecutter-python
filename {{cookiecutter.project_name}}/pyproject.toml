@@ -1,5 +1,5 @@
 [tool.pdm.dev-dependencies]
-dev = ["pytest", "ipykernel", "ruff", "pre-commit"]
+dev = ["pytest", "ipykernel", "ruff", "pre-commit", "python-dotenv"]
 
 # [[tool.pdm.source]]
 # name = "pytorch"
