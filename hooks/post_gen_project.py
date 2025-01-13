@@ -18,11 +18,11 @@ def write_file(source, target):
 
 
 def setup_logging_config():
-    init_template = Path("src/{{cookiecutter.project_name}}/__init__.py")
-    init_target = Path(f"../src/{project_dir_name}/{init_template.name}")
+    init_template = Path("config/__init__.py")
+    init_target = Path(f"../config/{init_template.name}")
 
-    logging_template = Path("src/{{cookiecutter.project_name}}/logging_config.py")
-    logging_target = Path(f"../src/{project_dir_name}/{logging_template.name}")
+    logging_template = Path("config/logging_config.py")
+    logging_target = Path(f"../config/{logging_template.name}")
 
     write_file(init_template, init_target)
     write_file(logging_template, logging_target)
