@@ -1,14 +1,16 @@
 [tool.pdm.dev-dependencies]
-dev = [
-    "pytest",
-    "ipykernel",
-    "ruff",
-    "pre-commit",
-]
+dev = ["pytest", "ipykernel", "ruff", "pre-commit"]
 
-[[tool.pdm.source]]
-name = "pytorch"
-url = "https://download.pytorch.org/whl/cu118"
+# [[tool.pdm.source]]
+# name = "pytorch"
+# url = "https://download.pytorch.org/whl/cu118"
+
+################## pytest ##################
+[tool.pytest.ini_options]
+addopts = "--maxfail=1"
+testpaths = ["tests"]
+
+################## ruff ##################
 
 # 120자 기준 줄바꿈
 [tool.ruff]
@@ -33,3 +35,5 @@ extend-select = [
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
+
+##########################################
