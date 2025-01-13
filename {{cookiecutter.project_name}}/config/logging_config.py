@@ -4,11 +4,11 @@ from datetime import datetime
 from pathlib import Path
 
 
-def setup_logging():
+def setup_logging(directory_name: str = "logs"):
     EVERY_DAY = 1
 
     date_str = datetime.now().strftime("%Y-%m-%d")
-    log_dir = Path("logs")
+    log_dir = Path("directory_name")
     log_dir.mkdir(parents=True, exist_ok=True)
     log_file_path = log_dir / f"{date_str}.log"
 
