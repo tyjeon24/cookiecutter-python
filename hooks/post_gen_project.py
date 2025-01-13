@@ -1,42 +1,44 @@
 from pathlib import Path
 import shutil
 
-template_dir = Path("../{{cookiecutter.project_name}}")
-project_dir_name = Path().absolute().parent.name
+ROOT = Path().absolute().parent
+COOKIECUTTER_ROOT = Path().absolute()
 
 
 def update_pyproject():
-    toml_target = Path("../pyproject.toml")
-    toml_template = Path("pyproject.toml")
+    toml_from = COOKIECUTTER_ROOT / Path("pyproject.toml")
+    toml_to = ROOT / Path("pyproject.toml")
 
-    toml_target.write_text(toml_target.read_text() + toml_template.read_text())
-
-
-def write_file(source, target):
-    target.write_text(source.read_text())
-    print(f"Moved {source.absolute()} to {target.absolute()}")
+    toml_to.write_text(toml_to.read_text() + toml_from.read_text())
+    print(f"[Update] {toml_to.absolute()}")
 
 
 def setup_logging_config():
-    init_template = Path("config/__init__.py")
-    init_target = Path(f"../config/{init_template.name}")
+    config_dir_cookiecutter = COOKIECUTTER_ROOT / Path("config")
+    config_dir = ROOT / Path("config")
+    config_dir.mkdir()
 
-    logging_template = Path("config/logging_config.py")
-    logging_target = Path(f"../config/{logging_template.name}")
+    init_from = config_dir_cookiecutter / Path("__init__.py")
+    init_to = config_dir / Path("__init__.py")
+    init_to.write_text(init_from.read_text())
+    print(f"[Add] {init_to.absolute()}")
 
-    write_file(init_template, init_target)
-    write_file(logging_template, logging_target)
+    logging_from = config_dir_cookiecutter / Path("logging_config.py")
+    logging_to = config_dir / Path("logging_config.py")
+    logging_to.write_text(logging_from.read_text())
+    print(f"[Add] {logging_to.absolute()}")
 
 
 def setup_pre_commit():
-    pre_commit_template = Path(".pre-commit-config.yaml")
-    pre_commit_target = Path(f"../.pre-commit-config.yaml")
-
-    write_file(pre_commit_template, pre_commit_target)
+    pre_commit_from = COOKIECUTTER_ROOT / Path(".pre-commit-config.yaml")
+    pre_commit_to = ROOT / Path(".pre-commit-config.yaml")
+    pre_commit_to.write_text(pre_commit_from.read_text())
+    print(f"[Add] {pre_commit_to.absolute()}")
 
 
 update_pyproject()
 setup_logging_config()
 setup_pre_commit()
 
-shutil.rmtree(template_dir)
+
+shutil.rmtree(COOKIECUTTER_ROOT)
