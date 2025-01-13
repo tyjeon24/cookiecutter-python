@@ -1,8 +1,8 @@
 from pathlib import Path
 import shutil
 
-ROOT = Path().absolute().parent
-COOKIECUTTER_ROOT = Path().absolute()
+ROOT = Path().absolute().parent  # Target project root. - /project
+COOKIECUTTER_ROOT = Path().absolute()  # Created directory. - /project/created
 
 
 def update_pyproject():
@@ -16,7 +16,7 @@ def update_pyproject():
 def setup_logging_config():
     config_dir_cookiecutter = COOKIECUTTER_ROOT / Path("config")
     config_dir = ROOT / Path("config")
-    config_dir.mkdir()
+    config_dir.mkdir(exist_ok=True)
 
     init_from = config_dir_cookiecutter / Path("__init__.py")
     init_to = config_dir / Path("__init__.py")
@@ -29,6 +29,16 @@ def setup_logging_config():
     print(f"[Add] {logging_to.absolute()}")
 
 
+def setup_src_init():
+    src_dir_cookiecutter = COOKIECUTTER_ROOT / Path("src")
+    src_dir = ROOT / Path("src", ROOT.name)
+
+    src_init_from = src_dir_cookiecutter / Path("__init__.py")
+    src_init_to = src_dir / Path("__init__.py")
+    src_init_to.write_text(src_init_from.read_text())
+    print(f"[Add] {src_init_to.absolute()}")
+
+
 def setup_pre_commit():
     pre_commit_from = COOKIECUTTER_ROOT / Path(".pre-commit-config.yaml")
     pre_commit_to = ROOT / Path(".pre-commit-config.yaml")
@@ -38,6 +48,7 @@ def setup_pre_commit():
 
 update_pyproject()
 setup_logging_config()
+setup_src_init()
 setup_pre_commit()
 
 
