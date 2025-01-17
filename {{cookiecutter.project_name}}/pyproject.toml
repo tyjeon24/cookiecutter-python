@@ -9,6 +9,7 @@ dev = ["pytest", "ipykernel", "ruff", "pre-commit", "typeguard","python-dotenv"]
 [tool.pytest.ini_options]
 addopts = "--maxfail=1"
 testpaths = ["tests"]
+norecursedirs = [".tox", ".git", "*/migrations/*", "docs", "venv", ".venv"]
 
 ################## ruff ##################
 
