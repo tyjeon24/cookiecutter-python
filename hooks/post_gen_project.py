@@ -51,10 +51,21 @@ def setup_pre_commit():
     print(f"[Add] {pre_commit_to.absolute()}")
 
 
+def setup_vscode_settings():
+    vscode_settings_dir_cookiecutter = COOKIECUTTER_ROOT / Path(".vscode")
+    vscode_settings_dir = ROOT / Path(".vscode")
+    vscode_settings_dir.mkdir(exist_ok=True)
+
+    settings_from = vscode_settings_dir_cookiecutter / Path("settings.json")
+    settings_to = vscode_settings_dir / Path("settings.json")
+    settings_to.write_text(settings_from.read_text(encoding="utf-8"), encoding="utf-8")
+    print(f"[Add] {settings_to.absolute()}")
+
+
 update_pyproject()
 setup_logging_config()
 setup_src_init()
 setup_pre_commit()
-
+setup_vscode_settings()
 
 shutil.rmtree(COOKIECUTTER_ROOT)
